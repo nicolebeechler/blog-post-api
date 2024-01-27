@@ -12,7 +12,7 @@ router.get('/:id', blogCtrl.show)
 router.post('/:blogId/users/:userId', blogCtrl.addUser)
 */
 
-exports.create = async function create(req, res) {
+exports.createBlog = async function create(req, res) {
     try {
         const createdBlog = await Blog.create(req.body)
         res.status(200).json(createdBlog)
@@ -21,7 +21,7 @@ exports.create = async function create(req, res) {
     }
 }
 
-exports.index = async function index(req, res) {
+exports.indexBlog = async function index(req, res) {
     try {
         const foundBlogs = await Blog.find({})
         res.status(200).json(foundBlogs)
@@ -30,7 +30,7 @@ exports.index = async function index(req, res) {
     }
 }
 
-exports.show = async function show(req, res) {
+exports.showBlog = async function show(req, res) {
     try {
         const foundBlog = await Blog.findOne({ _id: req.params.id })
         res.status(200).json(foundBlog)
@@ -39,7 +39,7 @@ exports.show = async function show(req, res) {
     }
 }
 
-exports.update = async function update(req, res) {
+exports.updateBlog = async function update(req, res) {
     try {
         const updatedBlog = await Blog.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true } )
         res.status(200).json(updatedBlog)
@@ -48,7 +48,20 @@ exports.update = async function update(req, res) {
     }
 }
 
-exports.destroy = async function destroy(req, res) {
+// exports.updateBlog = async (req, res) => {
+//     try{
+//       const updates = Object.keys(req.body)
+//       const blog = await Blog.findOne({ _id: req.params.id })
+//       updates.forEach(update => blog[update] = req.body[update])
+//       await blog.save()
+//       res.json(blog)
+//     }catch(error){
+//       res.status(400).json({message: error.message})
+//     }
+    
+//   }
+
+exports.destroyBlog = async function destroy(req, res) {
     try {
      const deleted = await Blog.findOneAndDelete({ _id: req.params.id })
      res.status(200).json({msg: `The blog with the ID of ${deleted._id}  was deleted from the MongoDB database, no further action necessary`})
