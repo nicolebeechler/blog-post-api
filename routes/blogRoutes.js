@@ -8,6 +8,10 @@ router.post('/', blogCtrl.create)
 router.get('/', blogCtrl.index)
 // GET /blogs/:id: Gets an individual blog
 router.get('/:id', blogCtrl.show)
+// PUT /blogs: Updates a blog post
+router.get('/:id', blogCtrl.update)
+// DELETE /blogs:id Deletes an individual blog post
+router.delete('/:id', blogCtrl.destroy)
 // POST /blogs/:blogId/users/:userId
 router.post('/:blogId/users/:userId', blogCtrl.addUser)
 
