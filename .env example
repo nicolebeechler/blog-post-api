@@ -1,1 +1,2 @@
+SECRET=yoursha
 MONGO_URI=mongodb+srv://yourlink
