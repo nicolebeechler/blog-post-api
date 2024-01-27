@@ -3,7 +3,7 @@ const router = express.Router()
 const blogCtrl = require('../controllers/blogController')
 
 // GET /blogs: Accepts Blog data and Creates a Blog Post
-router.post('/', blogpostCtrl.create)
+router.post('/', blogCtrl.create)
 // GET /blogs: Returns a list of all blogs
 router.get('/', blogCtrl.index)
 // GET /blogs/:id: Gets an individual blog

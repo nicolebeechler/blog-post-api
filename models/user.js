@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
     name: String,
     email: String, 
     password: String, 
-    blogposts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Blogpost'}]
+    blogposts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Blog'}]
 })
 
 userSchema.pre('save', async function(next) {
