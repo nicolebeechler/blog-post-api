@@ -3,11 +3,15 @@ const User = require('../models/user')
 
 /*
 // GET /blogs: Accepts Blog data and Creates a Blog Post
-router.post('/', blogpostCtrl.create)
+router.post('/', blogCtrl.createBlog)
 // GET /blogs: Returns a list of all blogs
-router.get('/', blogCtrl.index)
+router.get('/', blogCtrl.indexBlog)
 // GET /blogs/:id: Gets an individual blog
-router.get('/:id', blogCtrl.show)
+router.get('/:id', blogCtrl.showBlog)
+// PUT /blogs: Updates a blog post
+router.put('/:id', blogCtrl.updateBlog)
+// DELETE /blogs:id Deletes an individual blog post
+router.delete('/:id', blogCtrl.destroyBlog)
 // POST /blogs/:blogId/users/:userId
 router.post('/:blogId/users/:userId', blogCtrl.addUser)
 */
@@ -47,19 +51,6 @@ exports.updateBlog = async function update(req, res) {
         res.status(400).json({ msg: error.message })
     }
 }
-
-// exports.updateBlog = async (req, res) => {
-//     try{
-//       const updates = Object.keys(req.body)
-//       const blog = await Blog.findOne({ _id: req.params.id })
-//       updates.forEach(update => blog[update] = req.body[update])
-//       await blog.save()
-//       res.json(blog)
-//     }catch(error){
-//       res.status(400).json({message: error.message})
-//     }
-    
-//   }
 
 exports.destroyBlog = async function destroy(req, res) {
     try {
