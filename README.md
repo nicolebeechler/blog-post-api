@@ -10,7 +10,7 @@ This repository contains the code for a Node/Express BackEnd API that connects t
 
 A practical application of many-to-many relationships in a JSON API context. 
 
-A user can login, create, edit, view, and delete blog posts. Users are required to login to create and delete blog posts. The data is stored in MongoDB.
+A user can login, create, edit, view, and delete blog posts. Users are required to login to create, edit, and delete blog posts. The data is stored in MongoDB.
 
 This app has been tested with Postman, Jest and Supertest to verify that the endpoints are working.
 
@@ -64,7 +64,7 @@ View my [Project Board](https://github.com/users/nicolebeechler/projects/2/view
 ```js
 // user schema - .models/user
 {
-name: String,
+    name: String,
     email: String, 
     password: String, 
     blogposts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Blog'}]
@@ -97,6 +97,7 @@ router.delete('/:id', blogCtrl.destroyBlog) // deletes a blog
 | Endpoints: |  |  |
 | ---- | ---- | ---- |
 | POST | /users | Accepts user data and creates a new user |
+| PUT | /users/login | User is able to log in |
 | PUT | /users/:id | Updates a user |
 | DEL | /users/:id | Deletes a user |
 
@@ -121,7 +122,7 @@ _Required: Connect to your MongoDB server with `npm run dev`_
 
 | USER | Request Type | URL | BODY (raw, JSON) | Auth Token | Expected Response |
 | ---- | ---- | ---- | ---- | ---- | ---- |
-| Create New User | POST | localhost:3000/users | userSchema = `{"name", "email", "password"}` | No |  |
+| Create New User | POST | localhost:3000/users | userSchema = `{"name", "email", "password")` | No |  |
 | Login User | POST | localhost:3000/users/login | `{"email", "password"}` | Yes |  |
 | Edit/Update User | PUT | localhost:3000/users/`user._id` | update the value(s) in the userSchema | Yes |  |
 | Delete User | DELETE | localhost:3000/users/`user._id` | `// leave blank` | Yes | `"message": "User deleted"` |
