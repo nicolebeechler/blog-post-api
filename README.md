@@ -121,13 +121,14 @@ _Required: Connect to your MongoDB server with `npm run dev`_
 
 | USER | Request Type | URL | BODY (raw, JSON) | Auth Token | Expected Response |
 | ---- | ---- | ---- | ---- | ---- | ---- |
-| Create New User | POST | localhost:3000/users | userSchema = `{"name", "email", "password")` | No |  |
+| Create New User | POST | localhost:3000/users | userSchema = `{"name", "email", "password"}` | No |  |
+| Login User | POST | localhost:3000/users/login | `{"email", "password"}` | Yes |  |
 | Edit/Update User | PUT | localhost:3000/users/`user._id` | update the value(s) in the userSchema | Yes |  |
 | Delete User | DELETE | localhost:3000/users/`user._id` | `// leave blank` | Yes | `"message": "User deleted"` |
 
 | BLOG POSTS | Request Type | URL | BODY (raw, JSON) | Auth Token | Expected Response |
 | ---- | ---- | ---- | ---- | ---- | ---- |
-| Create New Blog Post | POST | localhost:3000/blogs | blogSchema = `"title", "description", "public"}` | Yes |  |
+| Create New Blog Post | POST | localhost:3000/blogs | blogSchema = `"{title", "description", "public"}` | Yes |  |
 | View All Blog Posts | GET | localhost:3000/blogs | `// leave blank` | No |  |
 | View an Individual Blog Post | GET | localhost:3000/blogs/`blog._id` | `// leave blank` | No |  |
 | Edit/Update Blog Post | PUT | localhost:3000/blogs/`blog._id` | update the value(s) in the blogSchema | Yes |  |
