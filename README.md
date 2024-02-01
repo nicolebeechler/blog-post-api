@@ -1,73 +1,87 @@
 # Blog Post API
 
-Node version must be version 18 to work with api locally and must create .env with MONGO_URI & sha256 SECRET + Must have nodemon installed global
+This repository contains the code for a Node/Express BackEnd API that connects to a database.
 
-## About 
+* Node must be version 18 to work with the API locally
+* A .env file must be used with a MONGO_URI & sha256 SECRET hash
+* Nodemon must be installed globally
 
-A practical application of many-to-many relationships in a JSON API context. A user can login, create, edit, view, and delete blog posts.
+### About the App
 
-View the Project Board [here](https://github.com/users/nicolebeechler/projects/2/views/1). 
+A practical application of many-to-many relationships in a JSON API context. 
 
-### API Models Diagram
+A user can login, create, edit, view, and delete blog posts. Users are required to login to create and delete blog posts. The data is stored in MongoDB.
 
-![Excalidraw](https://i.imgur.com/tUhXMhR.png)
+This app has been tested with Postman, Jest and Supertest to verify that the endpoints are working.
 
+View my [Project Board](https://github.com/users/nicolebeechler/projects/2/views/1) to see how I prioritized and organized my work.
 
-### Endpoints
+---
 
-#### Blog Posts:
+### How to Run the API
 
-1. **POST /blogs**: Accepts Blog Data and Creates a Blog
-2. **GET /blogs**: Returns a list of all Blogs
-3. **GET /blogs/:id**: Gets an individual Blog Post
-4. **PUT /blogs/:id:** Updates a Blog Post
-5. **DEL /blogs/:id:** Deletes a Blog Post
+1. In your terminal, navigate to the directory/folder you will clone the API into
+2. Clone the repository (`git clone git@github.com:nicolebeechler/blog-post-api.git`)
+3. Open `blog-post-api` in your code editor
+4. Run `npm install` to install all dependencies
 
-#### Users:
+### How to Connect the API
 
-1. **POST /users**: Accepts user data and creates a New User
-2. **PUT /users/:id:** Updates a User
-3. **DEL /users/:id:** Deletes a User
+1. Rename ".env example" to `.env`
+2. Include your [MONGO_URI](https://www.mongodb.com/atlas/database) database link to store data
+3. Include your [sha256 SECRET](https://emn178.github.io/online-tools/sha256.html) hash to use JWT (token authentication)
+4. Open the terminal within your code editor
+5. Run `npm run dev` to connect to MongoDB and [localhost:3000](https://localhost:3000/)
 
+### Check if They Are Connected
 
-## Getting Started
+1. If you see `We in the Building 3000`, it's connected to Port 3000
+2. If you see `Mongo is showing love`, it's connected to MongoDB
+3. If you see `Cannot GET /` in [localhost:3000](https://localhost:3000/), the BackEnd is working
 
-#### Download the API and Install the Packages
+---
 
-1. Retrieve the SSH link from the repository (`< > Code` > SSH)
-2. Make a new directory in your terminal, and open the containing file
-3. Clone the repository `git clone git@github.com:nicolebeechler/blog-post-api.git`
-4. Open the file in VS Code `code .` (or your preferred editor)
-5. In your Code Editor, open a terminal and install all the packages with `npm i`
+### API Models, Routes, & Endpoints
 
-#### Update the `.env example` File
+#### Models Diagram 
 
-1. Include your [MONGO_URI](https://www.mongodb.com/atlas/database)
-2. Include your [sha256 SECRET](https://emn178.github.io/online-tools/sha256.html)
-3. Update the file name to `.env`
+![Blog Post Models](https://i.imgur.com/yXggv2K.png)
 
-## Testing
-
-#### User Endpoints
+#### Model Schemas
 
 ```js
-// userRoutes - .routes/userRoutes
-
-router.post('/', userController.createUser) // create user
-router.post('/login', userController.loginUser) // logs in user
-router.put('/:id', userController.updateUser) // updates user
-router.delete('/:id', userController.auth, userController.deleteUser) // deletes a user
-
-// userSchema - .models/user
-
+// blog schema - .models/blog
 {
-name: String,
-email: String, 
-password: String,
+    title: { type: String, required: true }, 
+    description: { type: String, required: true }, 
+    public: { type: Boolean, required: true }, 
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+}, {
+    timestamps: true
 }
 ```
 
-#### Blog Post Endpoints
+```js
+// user schema - .models/user
+{
+name: String,
+    email: String, 
+    password: String, 
+    blogposts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Blog'}]
+}
+```
+
+### Endpoints & Routes
+
+#### Blog Posts:
+
+| Endpoints: |  |  |
+| ---- | ---- | ---- |
+| POST | /blogs | Accepts blog data and creates a blog |
+| GET | /blogs | Returns a list of all blog posts |
+| GET | /blogs/:id | Gets a list of all blog posts |
+| PUT | /blogs/:id | Updates a blog post |
+| DEL | /blogs/:id | Deletes a blog post |
 
 ```js
 // blogRoutes - ./routes/blogRoutes
@@ -77,71 +91,64 @@ router.get('/', blogCtrl.indexBlog) // shows all blogs
 router.get('/:id', blogCtrl.showBlog) // shows an individual blog
 router.put('/:id', blogCtrl.updateBlog) // updates a blog
 router.delete('/:id', blogCtrl.destroyBlog) // deletes a blog
+```
+#### [](https://github.com/nicolebeechler/blog-post-api#users)Users:
 
-// blogSchema - .models/blog
+| Endpoints: |  |  |
+| ---- | ---- | ---- |
+| POST | /users | Accepts user data and creates a new user |
+| PUT | /users/:id | Updates a user |
+| DEL | /users/:id | Deletes a user |
 
-{
-title: String
-description: String
-public: Boolean
-}
+```js
+// userRoutes - .routes/userRoutes
+
+router.post('/', userController.createUser) // create user
+router.post('/login', userController.loginUser) // logs in user
+router.put('/:id', userController.updateUser) // updates user
+router.delete('/:id', userController.auth, userController.deleteUser) // deletes a user
 ```
 
-### Postman Manual Testing
+---
 
-*Required: Connect to your MongoDB server with `npm run dev`*
+### Testing
 
-#### User:
+To verify that the routes and endpoints are working with the models and controllers, I used Postman for manual testing and Jest and Supertest for automated testing. 
 
-1. **Create New User**
-	1. POST request
-	2. URL: localhost:3000/users
-	3. Body: raw, JSON, input the New User's Data based on the `userSchema`
-2. **Edit User**
-	1. PUT request
-	2. URL: localhost:3000/users/`user._id` (from User)
-	3. Authorization, Type: Bearer Token  (from User)
-	4. Body: raw, JSON, update the value(s) in the userSchema
-3. **Delete User**
-	1. DELETE request
-	2. URL: localhost:3000/users/`user._id` (from User)
-	3. Authorization, Type: Bearer Token  (from User)
-	4. Body: *leave blank*
-	5. Expected response: `"message": "User deleted"`
+#### Postman Manual Testing
 
-#### Blog Posts: 
+_Required: Connect to your MongoDB server with `npm run dev`_
 
-1. **Create New Blog Post**
-	1. POST request
-	2. URL: localhost:3000/blogs
-	3. Body: raw, JSON, input the New Blog Post Data based on the `blogSchema`
-2. **View All Blog Posts**
-	1. GET request
-	2. URL: localhost:3000/blogs
-	3. Body: *leave blank*
-3. **View an Individual Blog Post**
-	1. GET request
-	2. URL: localhost:3000/blogs/`blog._id` (from Blog Post)
-	3. Body: *leave blank*
-4. **Update Blog Post**
-	1. PUT request
-	2. URL: localhost:3000/users/`user._id` (from User)
-	3. Authorization, Type: Bearer Token  (from User)
-	4. Body: raw, JSON, update the value(s) in the userSchema
-5. Delete Blog Post
-	1. DELETE request
-	2. URL: localhost:3000/users/`blog._id` (from Blog Post)
-	4. Body: *leave blank*
-	5. Expected response: `"message": "Blog post deleted"`
+| USER | Request Type | URL | BODY (raw, JSON) | Auth Token | Expected Response |
+| ---- | ---- | ---- | ---- | ---- | ---- |
+| Create New User | POST | localhost:3000/users | userSchema = `{"name", "email", "password")` | No |  |
+| Edit/Update User | PUT | localhost:3000/users/`user._id` | update the value(s) in the userSchema | Yes |  |
+| Delete User | DELETE | localhost:3000/users/`user._id` | `// leave blank` | Yes | `"message": "User deleted"` |
 
-### Jest and Supertest Automated Testing
+| BLOG POSTS | Request Type | URL | BODY (raw, JSON) | Auth Token | Expected Response |
+| ---- | ---- | ---- | ---- | ---- | ---- |
+| Create New Blog Post | POST | localhost:3000/blogs | blogSchema = `"title", "description", "public"}` | Yes |  |
+| View All Blog Posts | GET | localhost:3000/blogs | `// leave blank` | No |  |
+| View an Individual Blog Post | GET | localhost:3000/blogs/`blog._id` | `// leave blank` | No |  |
+| Edit/Update Blog Post | PUT | localhost:3000/blogs/`blog._id` | update the value(s) in the blogSchema | Yes |  |
+| Delete Blog Post | DELETE | localhost:3000/blogs/`blog._id` | `// leave blank` | Yes | `"message": "Blog post deleted"` |
 
-* Run the test files via `npm run test`
+#### Jest and Supertest Automated Testing
 
-## Technologies Used
+Run the test files via `npm run test`
 
-* MongoDB
+**Expected Response:** 
+
+![Blogs Test](https://i.imgur.com/lUvDcqB.png)
+
+![Users Test](https://i.imgur.com/2b1HQ1E.png)
+
+---
+
+### Technologies Used
+
 * Express
 * NodeJS
+* MongoDB
 * Postman - Manual Testing
 * Jest and Supertest - Automated Testing

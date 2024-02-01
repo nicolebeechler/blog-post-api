@@ -18,7 +18,10 @@ router.post('/:blogId/users/:userId', blogCtrl.addUser)
 
 exports.createBlog = async function create(req, res) {
     try {
-        const createdBlog = await Blog.create(req.body)
+        const createdBlog = await new Blog(req.body)
+        console.log(req.user)
+        createdBlog.createdBy = req.user._id
+        await createdBlog.save()
         res.status(200).json(createdBlog)
     } catch (error) {
         res.status(400).json({ msg: error.message })
