@@ -6,7 +6,7 @@ This repository contains the code for a Node/Express BackEnd API that connects t
 * A .env file must be used with a MONGO_URI & sha256 SECRET hash
 * Nodemon must be installed globally
 
-### About the App
+## About the App
 
 A practical application of many-to-many relationships in a JSON API context. 
 
@@ -18,14 +18,14 @@ View my [Project Board](https://github.com/users/nicolebeechler/projects/2/view
 
 ---
 
-### How to Run the API
+## How to Run the API
 
 1. In your terminal, navigate to the directory/folder you will clone the API into
 2. Clone the repository (`git clone git@github.com:nicolebeechler/blog-post-api.git`)
 3. Open `blog-post-api` in your code editor
 4. Run `npm install` to install all dependencies
 
-### How to Connect the API
+## How to Connect the API
 
 1. Rename ".env example" to `.env`
 2. Include your [MONGO_URI](https://www.mongodb.com/atlas/database) database link to store data
@@ -33,7 +33,7 @@ View my [Project Board](https://github.com/users/nicolebeechler/projects/2/view
 4. Open the terminal within your code editor
 5. Run `npm run dev` to connect to MongoDB and [localhost:3000](https://localhost:3000/)
 
-### Check if They Are Connected
+## Check if They Are Connected
 
 1. If you see `We in the Building 3000`, it's connected to Port 3000
 2. If you see `Mongo is showing love`, it's connected to MongoDB
@@ -41,13 +41,13 @@ View my [Project Board](https://github.com/users/nicolebeechler/projects/2/view
 
 ---
 
-### API Models, Routes, & Endpoints
+## API Models, Routes, & Endpoints
 
-#### Models Diagram 
+### Models Diagram 
 
 ![Blog Post Models](https://i.imgur.com/yXggv2K.png)
 
-#### Model Schemas
+### Model Schemas
 
 ```js
 // blog schema - .models/blog
@@ -71,9 +71,9 @@ name: String,
 }
 ```
 
-### Endpoints & Routes
+## Endpoints & Routes
 
-#### Blog Posts:
+### Blog Posts:
 
 | Endpoints: |  |  |
 | ---- | ---- | ---- |
@@ -92,7 +92,7 @@ router.get('/:id', blogCtrl.showBlog) // shows an individual blog
 router.put('/:id', blogCtrl.updateBlog) // updates a blog
 router.delete('/:id', blogCtrl.destroyBlog) // deletes a blog
 ```
-#### [](https://github.com/nicolebeechler/blog-post-api#users)Users:
+### Users:
 
 | Endpoints: |  |  |
 | ---- | ---- | ---- |
@@ -111,11 +111,11 @@ router.delete('/:id', userController.auth, userController.deleteUser) // deletes
 
 ---
 
-### Testing
+## Testing
 
 To verify that the routes and endpoints are working with the models and controllers, I used Postman for manual testing and Jest and Supertest for automated testing. 
 
-#### Postman Manual Testing
+### Postman Manual Testing
 
 _Required: Connect to your MongoDB server with `npm run dev`_
 
@@ -133,7 +133,7 @@ _Required: Connect to your MongoDB server with `npm run dev`_
 | Edit/Update Blog Post | PUT | localhost:3000/blogs/`blog._id` | update the value(s) in the blogSchema | Yes |  |
 | Delete Blog Post | DELETE | localhost:3000/blogs/`blog._id` | `// leave blank` | Yes | `"message": "Blog post deleted"` |
 
-#### Jest and Supertest Automated Testing
+### Jest and Supertest Automated Testing
 
 Run the test files via `npm run test`
 
@@ -145,7 +145,7 @@ Run the test files via `npm run test`
 
 ---
 
-### Technologies Used
+## Technologies Used
 
 * Express
 * NodeJS
