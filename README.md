@@ -10,7 +10,7 @@ This repository contains the code for a Node/Express BackEnd API that connects t
 
 A practical application of many-to-many relationships in a JSON API context. 
 
-A user can login or register to create, edit, view, and delete blog posts. Users are required to login to edit and delete blog posts. The data is stored in MongoDB.
+A user can login or register to create, edit, view, and delete blog posts. User authentication is required to create, edit and delete blog posts. The data is stored in MongoDB.
 
 This app has been tested with Postman, Jest and Supertest to verify that the endpoints are working.
 
