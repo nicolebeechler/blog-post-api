@@ -1,11 +1,13 @@
 const Blog = require('../models/blog')
 const User = require('../models/user')
 
-/*
+/* 
 // GET /blogs: Accepts Blog data and Creates a Blog Post
 router.post('/', blogCtrl.createBlog)
 // GET /blogs: Returns a list of all blogs
 router.get('/', blogCtrl.indexBlog)
+// GET /blogs/user/:userId: Returns a list of blogs by user ID
+router.get('/blogs/user/:userId', blogCtrl.getBlogsByUserId)
 // GET /blogs/:id: Gets an individual blog
 router.get('/:id', blogCtrl.showBlog)
 // PUT /blogs: Updates a blog post

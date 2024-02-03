@@ -45,7 +45,7 @@ View my [Project Board](https://github.com/users/nicolebeechler/projects/2/view
 
 ### Models Diagram 
 
-![Blog Post Models](https://i.imgur.com/yXggv2K.png)
+![Blog Post Models](https://i.imgur.com/yq4zgK4.png)
 
 ### Model Schemas
 
@@ -141,9 +141,9 @@ Run the test files via `npm run test`
 
 **Expected Response:** 
 
-![Blogs Test](https://i.imgur.com/lUvDcqB.png)
-
-![Users Test](https://i.imgur.com/2b1HQ1E.png)
+![Blogs Test](https://i.imgur.com/1DarhMF.png)
+![Users Test](https://i.imgur.com/y5atc6c.png)
+![Test Results](https://i.imgur.com/rQIwMWg.png)
 
 ---
 

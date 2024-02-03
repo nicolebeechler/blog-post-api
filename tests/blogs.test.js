@@ -100,7 +100,7 @@ describe('Test suite for Blog Post Routes', () => {
         const response = await request(app).get('/blogs')
         expect(response.statusCode).toBe(200)
     })
-
+    
     test('GET /blogs/:id - Retrieve an individual Blog Post', async () => {
         const user = new User({
             name: 'John Doe',
