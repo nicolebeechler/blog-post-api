@@ -61,11 +61,11 @@ exports.updateBlog = async function update(req, res) {
 
 exports.destroyBlog = async function destroy(req, res) {
     try {
-     const deleteBlog = await Blog.findOneAndDelete({ _id: req.params.id })
-     if (!deleteBlog) {
+     const deleted = await Blog.findOneAndDelete({ _id: req.params.id })
+     if (!deleted) {
         return res.status(400).json({ msg: 'Blog not found' })
      }
-     deleteBlog.createdBy = req.user._id
+     deleted.createdBy = req.user._id
 
      await Blog.deleteOne()
 
