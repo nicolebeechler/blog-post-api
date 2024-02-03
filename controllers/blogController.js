@@ -74,3 +74,4 @@ exports.destroyBlog = async function destroy(req, res) {
         res.status(400).json({ msg: error.message })
     }
 }
+
