@@ -79,7 +79,7 @@ View my [Project Board](https://github.com/users/nicolebeechler/projects/2/view
 | ---- | ---- | ---- |
 | POST | /blogs | Accepts blog data and creates a blog |
 | GET | /blogs | Returns a list of all blog posts |
-| GET | /blogs/:id | Gets a list of all blog posts |
+| GET | /blogs/:id | View one blog posts |
 | PUT | /blogs/:id | Updates a blog post |
 | DEL | /blogs/:id | Deletes a blog post |
 
