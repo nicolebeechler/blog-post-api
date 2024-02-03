@@ -10,8 +10,8 @@ router.get('/', blogCtrl.indexBlog)
 // GET /blogs/:id: Gets an individual blog
 router.get('/:id', blogCtrl.showBlog)
 // PUT /blogs: Updates a blog post
-router.put('/:id', blogCtrl.updateBlog)
+router.put('/:id', userCtrl.auth, blogCtrl.updateBlog)
 // DELETE /blogs:id Deletes an individual blog post
-router.delete('/:id', blogCtrl.destroyBlog)
+router.delete('/:id', userCtrl.auth, blogCtrl.destroyBlog)
 
 module.exports = router

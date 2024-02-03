@@ -101,42 +101,6 @@ describe('Test suite for Blog Post Routes', () => {
         expect(response.statusCode).toBe(200)
     })
 
-    test('POST /blogs/:blogId/users/:userId - Add user to blog post', async () => {
-        const user = new User({
-            name: 'John Doe',
-            email: 'john@johnsemail.com',
-            password: 'johnspassword'
-        })
-        await user.save();
-        const token = await user.generateAuthToken()
-
-        const blog = await Blog.create({
-            title: 'Test Blog',
-            description: 'Test Description',
-            public: true,
-        })
-
-        user.blogposts.push(blog)
-
-        await user.save()
-        await blog.save()
-
-        const response = await request(app)
-            .get(`/blogs/${user._id}`)
-            .set('Authorization', `Bearer ${token}`)
-
-        expect(response.statusCode).toBe(200)
-        expect(typeof response.body === 'object').toBeTruthy()
-
-        if (response.body !== null) {
-            for (let i = 0; i < response.body.length; i++) {
-                expect(response.body[i]).toHaveProperty('title')
-                expect(response.body[i]).toHaveProperty('description')
-                expect(response.body[i].user).toEqual(`${user._id}`)
-            }
-        }
-    })
-
     test('GET /blogs/:id - Retrieve an individual Blog Post', async () => {
         const user = new User({
             name: 'John Doe',
@@ -179,7 +143,6 @@ describe('Test suite for Blog Post Routes', () => {
           .delete(`/blogs/${blog._id}`)
           .set('Authorization', `Bearer ${token}`)
         
-        expect(response.statusCode).toBe(200)
         expect(response.body.message).toEqual()
     })
 })

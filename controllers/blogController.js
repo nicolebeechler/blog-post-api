@@ -49,6 +49,8 @@ exports.showBlog = async function show(req, res) {
 exports.updateBlog = async function update(req, res) {
     try {
         const updatedBlog = await Blog.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true } )
+        updatedBlog.createdBy = req.user._id
+        await updatedBlog.save()
         res.status(200).json(updatedBlog)
     } catch (error) {
         res.status(400).json({ msg: error.message })
@@ -57,32 +59,15 @@ exports.updateBlog = async function update(req, res) {
 
 exports.destroyBlog = async function destroy(req, res) {
     try {
-     const deleted = await Blog.findOneAndDelete({ _id: req.params.id })
+     const deleteBlog = await Blog.findOneAndDelete({ _id: req.params.id })
+     if (!deleteBlog) {
+        return res.status(400).json({ msg: 'Blog not found' })
+     }
+     deleteBlog.createdBy = req.user._id
+
+     await Blog.deleteOne()
+
      res.status(200).json({msg: `The blog with the ID of ${deleted._id}  was deleted from the MongoDB database, no further action necessary`})
-
-    } catch (error) {
-        res.status(400).json({ msg: error.message })
-    }
-}
-
-// connect blogs to users, and users to blogs
-
-exports.addUser = async function addUser(req, res) {
-    try {
-        const foundUser = await User.findOne({ _id: req.params.userId })
-        if(!foundUser) throw new Error(`Could not locate user with ID ${req.params.userId}`)
-        const foundBlog = await User.findOne({ _id: req.params.blogId })
-        if(!foundBlog) throw new Error(`Could not locate blog with ID ${req.params.blogId}`)
-        // many to many 
-        foundBlog.createdBy.push(foundUser._id)
-        foundUser.blogposts.push(foundBlog._id)
-        await foundBlog.save()
-        await foundUser.save()
-        req.status(200).json({
-            msg: `Successfully associated user with is ${req.params.userId} and blog with id ${req.params.blogId}`,
-            blog: foundBlog,
-            user: foundUser
-        })
     } catch (error) {
         res.status(400).json({ msg: error.message })
     }

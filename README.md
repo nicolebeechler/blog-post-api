@@ -122,7 +122,7 @@ _Required: Connect to your MongoDB server with `npm run dev`_
 
 | USER | Request Type | URL | BODY (raw, JSON) | Auth Token | Expected Response |
 | ---- | ---- | ---- | ---- | ---- | ---- |
-| Create New User | POST | localhost:3000/users | userSchema = `{"name", "email", "password")` | No |  |
+| Create New User | POST | localhost:3000/users | userSchema = `{"name", "email", "password"}` | No |  |
 | Login User | POST | localhost:3000/users/login | `{"email", "password"}` | Yes |  |
 | Edit/Update User | PUT | localhost:3000/users/`user._id` | update the value(s) in the userSchema | Yes |  |
 | Delete User | DELETE | localhost:3000/users/`user._id` | `// leave blank` | Yes | `"message": "User deleted"` |
@@ -152,5 +152,7 @@ Run the test files via `npm run test`
 * Express
 * NodeJS
 * MongoDB
+* JSON Web Token - Authentication
+* Bcrypt - Password Hashing
 * Postman - Manual Testing
 * Jest and Supertest - Automated Testing
